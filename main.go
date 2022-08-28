@@ -18,6 +18,7 @@ func main() {
 // 중요한 것은 기본적으로 package가 어떻게 동작하는 지
 // 그리고 왜 Println은 대문자로 시작하는 지 알고 넘어가야한다.
 
+//---------------------------------------------------------------------------------------------------
 // constant(상수): 변수지만 값을 바꿀 수 없다.
 // variable(변수): 값을 변경할 수 있다.
 
@@ -43,6 +44,7 @@ func main2() {
 	fmt.Println(name2)
 }
 
+//---------------------------------------------------------------------------------------------------
 // return 값의 type도 명시해줘야한다.
 // 어떤 종류의 value를 받는지, arguments, return에 명시해줘야한다.
 
@@ -77,3 +79,40 @@ func lenAndUpper2(name string) (length int, uppercase string) {
 	uppercase = strings.ToUpper(name)
 	return // length, uppercase를 여기에 적지 않아도 동작한다. 하지만, 명시하는 것이 편하면 하는 것이 좋다.
 }
+
+//---------------------------------------------------------------------------------------------------
+
+// Go에서 loop은 오로지 for을 사용하는 것만으로 가능하다.
+// range는 array에 loop을 적용할 수 있도록 한다.
+// 아래와 같이 작성하면 0부터 시작한다. range는 index를 주기 때문이다.
+// 그래서 index를 추가했다.
+
+func superAdd(numbers ...int) int {
+	for index, number := range numbers {
+		fmt.Println(index, number)
+	}
+	return 1
+}
+
+func superAdd2(numbers ...int) int {
+	for i := 0; i < len(numbers); i++ {
+		fmt.Println(numbers[i])
+	}
+	return 1
+}
+
+func superAdd3(numbers ...int) int {
+	total := 0
+	for _, number := range numbers {
+		total += number
+	}
+	return total
+}
+func main4() {
+	superAdd(1, 2, 3, 4, 5, 6)
+	superAdd2(1, 2, 3, 4, 5, 6)
+	result := superAdd3(1, 2, 3, 4, 5, 6)
+	fmt.Println(result)
+}
+
+//---------------------------------------------------------------------------------------------------
