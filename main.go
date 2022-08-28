@@ -116,3 +116,25 @@ func main4() {
 }
 
 //---------------------------------------------------------------------------------------------------
+
+// 놀라운 점은 if 속에서 변수를 생성할 수 있다는 것이다.
+
+func canIDrink(age int) bool {
+	if koreanAge := age + 2; koreanAge < 18 { // if-else 조건에서만 사용하는 변수라는 것을 알 수 있다.
+		return false
+	} else {
+		return true
+	}
+
+	// else를 없애고 바로 return true를 적어도 가능.
+	// if age < 18 {
+	//	return false
+	// }
+	// return true  -> 이렇게!
+}
+
+func main5() {
+	fmt.Println(canIDrink(16))
+}
+
+//---------------------------------------------------------------------------------------------------
