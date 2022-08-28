@@ -138,3 +138,44 @@ func main5() {
 }
 
 //---------------------------------------------------------------------------------------------------
+
+// switch 활용
+
+func canIDrink1(age int) bool {
+	switch age {
+	case 10:
+		return false
+	case 18:
+		return true
+	}
+	return false
+}
+
+func canIDrink2(age int) bool {
+	switch {
+	case age < 18:
+		return false
+	case age == 18:
+		return true
+	}
+	return false
+}
+
+func canIDrink3(age int) bool {
+	switch koreanAge := age + 2; koreanAge {
+	case 10:
+		return false
+	case 18:
+		return true
+	}
+	return false
+}
+
+func main6() {
+	fmt.Println(canIDrink1(16))
+	fmt.Println(canIDrink2(16))
+	fmt.Println(canIDrink3(16))
+
+}
+
+//---------------------------------------------------------------------------------------------------
