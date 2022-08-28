@@ -5,6 +5,7 @@ package main // 1. package : 작성할 패키지의 이름을 작성해주는 �
 import (
 	"fmt"
 	"prgmr99/learngo/something"
+	"strings"
 )
 
 // 2. function : 아래의 방법이 Go에서 function을 만드는 방법
@@ -41,3 +42,29 @@ func main2() {
 	fmt.Println(name1)
 	fmt.Println(name2)
 }
+
+// return 값의 type도 명시해줘야한다.
+// 어떤 종류의 value를 받는지, arguments, return에 명시해줘야한다.
+
+func multiply(a int, b int) int { //(a,b int)도 가능
+	return a * b
+}
+
+func lenAndUpper(name string) (int, string) {
+	return len(name), strings.ToUpper(name)
+}
+
+func repeatMe(words ...string) { // arguments를 무제한으로 받는 방법.
+	fmt.Println(words)
+}
+
+func main3() {
+	fmt.Println(multiply(2, 2))
+	totalLength, upperName := lenAndUpper("nico")
+	fmt.Println(totalLength, upperName)
+	repeatMe("nico", "lynn", "dal", "marl", "flynn")
+}
+
+// totalLength만 반환 받으려 했으면 에러가 발생한다.
+// lenAndUpper은 두 개의 값을 return하기 때문이다.
+// totalLength, _ := lenAndUpper("nico") -> 이렇게 작성하면 value값을 무시할 수 있다.
