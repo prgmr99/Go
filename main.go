@@ -68,3 +68,12 @@ func main3() {
 // totalLength만 반환 받으려 했으면 에러가 발생한다.
 // lenAndUpper은 두 개의 값을 return하기 때문이다.
 // totalLength, _ := lenAndUpper("nico") -> 이렇게 작성하면 value값을 무시할 수 있다.
+
+// 'defer'은 function이 값을 return하고 나면 실행된다.
+// 그렇다고 나중에 출력되는 것은 아니고 아래 문장 우선 출력하고 그 이후 return값 출력한다.
+func lenAndUpper2(name string) (length int, uppercase string) {
+	defer fmt.Println("I'm done.")
+	length = len(name)
+	uppercase = strings.ToUpper(name)
+	return // length, uppercase를 여기에 적지 않아도 동작한다. 하지만, 명시하는 것이 편하면 하는 것이 좋다.
+}
