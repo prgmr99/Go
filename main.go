@@ -231,3 +231,27 @@ func main8() {
 	fmt.Println(names)
 	fmt.Println(names1)
 }
+
+//---------------------------------------------------------------------------------------------------
+
+// map이라 불리는 데이터 구조
+// python의 map과 유사하지만 완전히 같지는 않다.
+
+func main9() {
+	nico := map[string]string{"name": "john", "age": "12"} // [key]value, 타입에 맞는 것만 할 수 있다. -> "age": 12 는 안된다.
+
+	// map도 range를 활용할 수 있다.
+	for key, value := range nico {
+		fmt.Println(key, value)
+	}
+
+	// value만 출력
+	for _, value := range nico {
+		fmt.Println(value)
+	}
+
+	// key만 출력
+	for key, _ := range nico {
+		fmt.Println(key)
+	}
+}
