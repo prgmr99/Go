@@ -212,3 +212,22 @@ func main7() {
 	*b = 20 // b는 a와 연결되어 있기 때문에 b를 통해서 a를 변경시킬 수 있다.
 	fmt.Println(*b)
 }
+
+//---------------------------------------------------------------------------------------------------
+
+// Go의 array는 다른 언어들과 차이가 있다.
+
+func main8() {
+	names := [5]string{"nico", "lynn", "dal"} // 배열의 크기와 타입, 요소들을 명시해줘야한다.
+	names[3] = "alala"
+	names[4] = "alala"
+	// names[5] = "alala" -> 인덱스 error 발생
+
+	// 배열의 크기를 정하고 싶지 않을 때는 slice를 사용한다. -> [] 이렇게만 사용하면 된다.
+	names1 := []string{"j", "k", "q"}
+	names1 = append(names1, "a") // 위의 배열에서 값을 추가하고 싶을 때 -> argument: slice, elem
+	// names1을 매개변수로 받고 요소를 추가하여 새로운 slice를 return 하는 구조이다. (javascript/python과 다른 구조)
+
+	fmt.Println(names)
+	fmt.Println(names1)
+}
