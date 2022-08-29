@@ -255,3 +255,24 @@ func main9() {
 		fmt.Println(key)
 	}
 }
+
+//---------------------------------------------------------------------------------------------------
+
+// struct는 object와 비슷하면서 map보다 좀 더 유연한 것이 특징이다.
+
+type person struct {
+	name    string
+	age     int
+	favFood []string // slice of string
+}
+
+func main10() {
+	favFood := []string{"kimchi", "ramen"}
+	// nico := person{"john", 19, favFood} 이렇게 작성하는 것보다 아래와 같이 작성하는 것이 조금 더 깔끔해보인다.
+	nico := person{name: "nico", age: 18, favFood: favFood} // 조금 더 명확하게 보인다.
+
+	// 위의 2가지 방법 중 한 가지만 사용해야한다. 둘을 섞어서 사용할 수 없다.
+	fmt.Print(nico)
+}
+
+// Go 에서는 constructor가 없기 때문에 직접 입력해줘야한다.
