@@ -4,7 +4,6 @@ package main // 1. package : 작성할 패키지의 이름을 작성해주는 �
 
 import (
 	"fmt"
-	"prgmr99/learngo/something"
 	"strings"
 )
 
