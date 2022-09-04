@@ -1,4 +1,4 @@
-package mydict
+package Projects_dictionary
 
 import "errors"
 
@@ -7,6 +7,7 @@ type Dictionary map[string]string // Dictionary는 map[string]string에 대한 a
 // type에도 struct처럼 method를 추가할 수 있다.
 
 var errNotFound = errors.New("not found")
+var errWordExists = errors.New("that word already exists")
 
 // Search for a word
 func (d Dictionary) Search(word string) (string, error) {
@@ -19,3 +20,15 @@ func (d Dictionary) Search(word string) (string, error) {
 
 // map은 key의 존재여부를 알려주는 방법이 있다.
 // i, ok := m["route"] -> map에서 "route"를 호출하면 i(value)와 존재여부를 알려주는 ok(boolean)을 반환한다.
+
+// Add a word to the dictionary
+func (d Dictionary) Add(word string, def string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		d[word] = def
+	case nil:
+		return errWordExists
+	}
+	return nil
+}
