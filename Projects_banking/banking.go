@@ -38,7 +38,7 @@ func (a *Account) Withdraw(amount int) error {
 	}
 
 	a.balance -= amount
-	return nil // Null or None 과 같은 것.
+	return nil // Null or None과 같은 것.
 }
 
 // Go에는 exception이 없다. try~except / try~catch 등.
