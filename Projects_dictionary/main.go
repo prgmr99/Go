@@ -39,7 +39,8 @@ func main() {
 	}
 }*/
 
-func main() {
+// Add
+/*func main() {
 	dictionary := mydict.Dictionary{}
 	word := "hello"
 	definition := "Greeting"
@@ -52,5 +53,34 @@ func main() {
 	err2 := dictionary.Add(word, definition)
 	if err2 != nil {
 		fmt.Println(err2)
+	}
+}*/
+
+// Update
+/*func main() {
+	dictionary := mydict.Dictionary{}
+	baseword := "hello"
+	dictionary.Add(baseword, "First")            // 먼저 baseword를 first로 정의하고
+	err := dictionary.Update(baseword, "Second") // 그 후 baseword를 second로 update하고 싶다.
+	if err != nil {
+		fmt.Println(err)
+	}
+	word, _ := dictionary.Search(baseword)
+	fmt.Println(word) // 그리고 word를 출력했을 때 Second가 출력되어야한다.
+
+}*/
+
+// Delete
+func main() {
+	dictionary := mydict.Dictionary{}
+	baseword := "hello"
+	dictionary.Add(baseword, "First")
+	dictionary.Search(baseword)
+	dictionary.Delete(baseword)
+	word, err := dictionary.Search(baseword)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(word)
 	}
 }
