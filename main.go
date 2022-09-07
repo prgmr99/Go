@@ -281,7 +281,9 @@ func main10() {
 // Go 에서는 constructor가 없기 때문에 직접 입력해줘야한다.
 
 // URL checker
-func main11() {
+func main() {
+	var results = make(map[string]string) // 이런 식으로 하지 않으면 map은 nil이 되어버린다.
+	// nil인 map에는 어떤 값을 넣을 수가 없게된다. 중요한 내용!!
 	urls := []string{
 		"https://www.airbnb.com/",
 		"https://www.google.com/",
@@ -293,9 +295,21 @@ func main11() {
 		"https://www.instagram.com/",
 		"https://academy.nomadcoders.co/",
 	}
+	// // 초기화되지 않은 map에 어떤 값을 넣을 수 없다. -> 넣으면 에러발생(어디서 발생한지 몰라서 알려주지 않음.)
+	// 비어있는 empty map을 만들기 위해서는 끝에 {}를 해주면 된다.
+	// 이 방법(var 변수 선언)말고 할 수 있는 방법은 make()를 하는 것.
+	// make()는 map을 만들어주는 함수.
 
 	for _, url := range urls { // _, 을 안써주면 value를 얻을 수 없다. url -> index
-		hitURL(url)
+		result := "OK"
+		err := hitURL(url)
+		if err != nil {
+			result = "FAILED"
+		}
+		results[url] = result
+	}
+	for url, result := range results {
+		fmt.Println(url, result)
 	}
 }
 
