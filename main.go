@@ -3,9 +3,13 @@
 package main // 1. package : 작성할 패키지의 이름을 작성해주는 곳.
 
 import (
+	"errors"
 	"fmt"
+	"net/http"
 	"strings"
 )
+
+var errRequestFailed = errors.New("request failed")
 
 // 2. function : 아래의 방법이 Go에서 function을 만드는 방법
 func main() {
@@ -275,3 +279,35 @@ func main10() {
 }
 
 // Go 에서는 constructor가 없기 때문에 직접 입력해줘야한다.
+
+// URL checker
+func main11() {
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://www.google.com/",
+		"https://soundcloud.com/",
+		"https://www.facebook.com/",
+		"https://www.instagram.com/",
+		"https://academy.nomadcoders.co/",
+	}
+
+	for _, url := range urls { // _, 을 안써주면 value를 얻을 수 없다. url -> index
+		hitURL(url)
+	}
+}
+
+// 함수를 만들어보자
+// 웹사이트로 접속(hit, 인테넷 웹 서버의 파일 1개에 접속하는 것)하고
+// 그 결과를 알려주는 함수.
+
+func hitURL(url string) error {
+	fmt.Println("Checking:", url)
+	resp, err := http.Get(url)
+	if err != nil || resp.StatusCode >= 400 {
+		return errRequestFailed
+	}
+	return nil
+}
