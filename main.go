@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 )
 
 var errRequestFailed = errors.New("request failed")
@@ -324,4 +325,28 @@ func hitURL(url string) error {
 		return errRequestFailed
 	}
 	return nil
+}
+
+// Go에서 작업을 최적화하는 방법은 동시에 작업을 처리하는 것.
+// Goroutines이란 기본적으로 다른 함수와 동시에 실행시키는 함수.
+
+func main12() {
+	// sexyCount("nico")
+	// sexyCount("fynn")
+	// 위와 같이 하면 20초가 걸린다.
+
+	go sexyCount("nico") // 이렇게 하면 동시에 실행된다. -> 10 소요. go만 추가하면 된다.
+	sexyCount("fynn")    // 두 번째 sexycount에도 go를 추가하면 아무것도 출력되지 않는다.
+	// 프로그램이 종료되었기 때문에 그렇다. -> main 함수가 작업을 마쳤기 때문이다.
+	// Goroutines는 프로그램이 작동하는 동안만 유효하다.
+	// 어떤 작업을 동시에 진행하려고하면 메인 함수는 다른 goroutines를 기다려주지 않는다.
+	// 메인 함수가 끝나면 goroutines도 소멸된다.
+	// 위의 코드가 실행되는 이유는 메인 함수가 fynn을 카운팅하고 있기 때문이다.
+}
+
+func sexyCount(person string) {
+	for i := 0; i < 10; i++ {
+		fmt.Println(person, "is sexy", i)
+		time.Sleep(time.Second)
+	}
 }
