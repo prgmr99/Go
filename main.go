@@ -350,3 +350,28 @@ func sexyCount(person string) {
 		time.Sleep(time.Second)
 	}
 }
+
+// channel: goroutine이랑 메인함수 사이에 정보를 전달하기 위한 방법.
+// 채널은 파이프 같은 것 - 메세지를 보내거나 받을 수 있다.
+// 아래의 코드는 기본적으로 이 person이 sexy한지 확인하는 것
+
+func main13() {
+	c := make(chan bool)                 // c: channel name 아무거나 해도 괜찮다.
+	people := [2]string{"nico", "flynn"} // 배열
+	for _, person := range people {
+		go isSexy(person, c) // result := go isSexy(person) 같이 작성할 수 없다. 이 isSexy함수의 작업이 끝나면
+		// 아래의 함수의 true값을 channel을 통해 보내고 싶은 것.
+	}
+	//result := <-c  // 채널에서 보낸 메세지를 result에 저장한다.
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+}
+
+func isSexy(person string, c chan bool) { // c: argument name, chan: channel type, bool: return type
+	time.Sleep(time.Second * 5)
+	fmt.Println(person)
+	c <- true // c에 true를 보내준다.
+}
+
+// 채널을 만들었고 그 채널은 두 개의 함수(isSexy nico, isSexyflynn로 보내진다.
+// 이 두 함수는 5초뒤에 나에게 true를 보내준다.
