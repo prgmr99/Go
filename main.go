@@ -15,7 +15,7 @@ var errRequestFailed = errors.New("request failed")
 // 2. function : 아래의 방법이 Go에서 function을 만드는 방법
 func main() {
 	fmt.Println("Hello world!")
-	something.SayBye() // exported function
+	//something.SayBye() // exported function
 	// something.sayHello() // private function
 }
 
@@ -364,8 +364,8 @@ func main13() {
 		// 아래의 함수의 true값을 channel을 통해 보내고 싶은 것.
 	}
 	// result := <-c  // 채널에서 보낸 메세지를 result에 저장한다.
-	// <-c, 채널로부터 메세지를 가져오는 것.
-	fmt.Println("Waiting for messages")
+	// <-c, 채널로부터 메세지를 가져오는 것. 메세지를 받는 것 = blocking operation.
+
 	// loop 활용하여 작성해보자.
 	//resultOne := <-c
 	//resultTwo := <-c
@@ -373,6 +373,7 @@ func main13() {
 	//fmt.Println("Received this message", resultTwo)
 
 	for i := 0; i < len(people); i++ {
+		fmt.Println("Waiting for messages", i)
 		fmt.Println(<-c)
 	}
 }
@@ -386,3 +387,13 @@ func isSexy(person string, c chan string) { // c: argument name, chan: channel t
 
 // 채널을 만들었고 그 채널은 두 개의 함수(isSexy nico, isSexyflynn로 보내진다.
 // 이 두 함수는 5초뒤에 나에게 true를 보내준다.
+
+// Rules of Channel
+// 1. 먼저 해야하는 것을 먼저 해치운다.
+// channel과 goroutines가 우선이다.
+// 만약, 메인함수가 끝이나면 나의 goroutines는 무의미해진다. 끝이났던 끝이나지 않았던.
+// 2. 내가 받을 데이터와 보낼 데이터에 대해서
+// 어떤 타입을 받을 것인지를 구체적으로 지정해줘야한다는 것.
+// 3. 메세지를 채널로 보내는 방법은 메세지에 화살표를 붙여서 채널로 항햐게 작성하면된다.
+// 메세지를 받을 수 있는 곳이 없더라도 메세지를 보낼 수 있다.
+// blocking operation: 프로그램(이 경우에는 메인함수)이 뭔가를 받기 전까지 동작을 멈춘다는 것.
