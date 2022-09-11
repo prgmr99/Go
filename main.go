@@ -397,3 +397,51 @@ func isSexy(person string, c chan string) { // c: argument name, chan: channel t
 // 3. 메세지를 채널로 보내는 방법은 메세지에 화살표를 붙여서 채널로 항햐게 작성하면된다.
 // 메세지를 받을 수 있는 곳이 없더라도 메세지를 보낼 수 있다.
 // blocking operation: 프로그램(이 경우에는 메인함수)이 뭔가를 받기 전까지 동작을 멈춘다는 것.
+
+// URL checker
+
+type requestResult struct {
+	url    string
+	status string
+}
+
+func main15() {
+	results := make(map[string]string)
+	c := make(chan requestResult)
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://www.google.com/",
+		"https://soundcloud.com/",
+		"https://www.facebook.com/",
+		"https://www.instagram.com/",
+		"https://academy.nomadcoders.co/",
+	}
+
+	for _, url := range urls {
+		go hitURL1(url, c) // hitURL로 채널을 보낸다. ",c"를 추가함으로써
+	}
+	// 이렇게 작성하고 바로 실행해보면 바로 종료된다. 왜? -> 아무도 메세지를 기다리지 않기 때문이다.
+	for i := 0; i < len(urls); i++ {
+		result := <-c
+		results[result.url] = result.status
+	}
+
+	for url, status := range results {
+		fmt.Println(url, status)
+	}
+}
+
+func hitURL1(url string, c chan<- requestResult) { // chan<- : send only
+	// c <- result{} 이런 식으로 작성하면 채널로 메세지를 보낼 수 있다.
+	// fmt.Println(<-c) 이런 식으로 작성하면 채널에서 메세지를 받을 수 있다.
+	resp, err := http.Get(url)
+	status := "OK"
+	if err != nil || resp.StatusCode >= 400 {
+		status = "FAILED"
+	} else {
+		c <- requestResult{url: url, status: status}
+	}
+}
