@@ -282,7 +282,7 @@ func main10() {
 // Go 에서는 constructor가 없기 때문에 직접 입력해줘야한다.
 
 // URL checker
-func main() {
+func main11() {
 	var results = make(map[string]string) // 이런 식으로 하지 않으면 map은 nil이 되어버린다.
 	// nil인 map에는 어떤 값을 넣을 수가 없게된다. 중요한 내용!!
 	urls := []string{
@@ -356,21 +356,32 @@ func sexyCount(person string) {
 // 아래의 코드는 기본적으로 이 person이 sexy한지 확인하는 것
 
 func main13() {
-	c := make(chan bool)                 // c: channel name 아무거나 해도 괜찮다.
+	// c := make(chan bool)                 // c: channel name 아무거나 해도 괜찮다.
+	c := make(chan string)
 	people := [2]string{"nico", "flynn"} // 배열
 	for _, person := range people {
 		go isSexy(person, c) // result := go isSexy(person) 같이 작성할 수 없다. 이 isSexy함수의 작업이 끝나면
 		// 아래의 함수의 true값을 channel을 통해 보내고 싶은 것.
 	}
-	//result := <-c  // 채널에서 보낸 메세지를 result에 저장한다.
-	fmt.Println(<-c)
-	fmt.Println(<-c)
+	// result := <-c  // 채널에서 보낸 메세지를 result에 저장한다.
+	// <-c, 채널로부터 메세지를 가져오는 것.
+	fmt.Println("Waiting for messages")
+	// loop 활용하여 작성해보자.
+	//resultOne := <-c
+	//resultTwo := <-c
+	//fmt.Println("Received this message", resultOne)
+	//fmt.Println("Received this message", resultTwo)
+
+	for i := 0; i < len(people); i++ {
+		fmt.Println(<-c)
+	}
 }
 
-func isSexy(person string, c chan bool) { // c: argument name, chan: channel type, bool: return type
-	time.Sleep(time.Second * 5)
-	fmt.Println(person)
-	c <- true // c에 true를 보내준다.
+func isSexy(person string, c chan string) { // c: argument name, chan: channel type, bool: return type
+	time.Sleep(time.Second * 10)
+	// fmt.Println(person)
+	// c <- true // c에 true를 보내준다.
+	c <- person + " is sexy"
 }
 
 // 채널을 만들었고 그 채널은 두 개의 함수(isSexy nico, isSexyflynn로 보내진다.
