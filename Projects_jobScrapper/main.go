@@ -47,3 +47,17 @@ func checkCode(resp *http.Response) {
 		log.Fatalln("Request failed with Status : ", resp.StatusCode)
 	}
 }
+
+/*func getHttp(url string) *http.Response {
+	fmt.Println("[GET]Request :", url)
+	req, rErr := http.NewRequest("GET", url, nil)
+	checkErr(rErr)
+	req.Header.Add("User-Agent", "Crawler")
+
+	client := &http.Client{}
+	res, err := client.Do(req)
+	checkErr(err)
+	checkCode(res)
+
+	return res
+}*/
